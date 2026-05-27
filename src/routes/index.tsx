@@ -23,6 +23,8 @@ import {
   Store,
   Briefcase,
 } from "lucide-react";
+import { I18nProvider, useI18n } from "@/lib/i18n";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 const WHATSAPP_URL =
   "https://wa.me/212701179697?text=Bonjour%20je%20veux%20un%20site%20web";
@@ -53,16 +55,33 @@ export const Route = createFileRoute("/")({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap",
       },
     ],
   }),
-  component: Index,
+  component: IndexWrapper,
 });
 
-function Index() {
+function IndexWrapper() {
   return (
-    <div className="min-h-screen bg-background text-foreground antialiased">
+    <I18nProvider>
+      <Index />
+    </I18nProvider>
+  );
+}
+
+function Index() {
+  const { lang } = useI18n();
+  return (
+    <div
+      className="min-h-screen bg-background text-foreground antialiased"
+      style={{
+        fontFamily:
+          lang === "ar"
+            ? '"Noto Kufi Arabic", "Inter", system-ui, sans-serif'
+            : undefined,
+      }}
+    >
       <Header />
       <main>
         <Hero />
@@ -85,6 +104,7 @@ function Index() {
 
 /* ---------------- Header ---------------- */
 function Header() {
+  const { t } = useI18n();
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -92,6 +112,13 @@ function Header() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const navItems: [string, string][] = [
+    [t("nav.services"), "#services"],
+    [t("nav.features"), "#features"],
+    [t("nav.process"), "#process"],
+    [t("nav.pricing"), "#pricing"],
+  ];
 
   return (
     <header
@@ -109,12 +136,7 @@ function Header() {
           <span className="font-display text-lg tracking-tight">Siteflow</span>
         </a>
         <nav className="hidden items-center gap-8 md:flex">
-          {[
-            ["Services", "#services"],
-            ["Features", "#features"],
-            ["Process", "#process"],
-            ["Pricing", "#pricing"],
-          ].map(([label, href]) => (
+          {navItems.map(([label, href]) => (
             <a
               key={href}
               href={href}
@@ -125,6 +147,7 @@ function Header() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
+          <LanguageSwitcher />
           <a
             href={INSTAGRAM_URL}
             target="_blank"
@@ -141,7 +164,7 @@ function Header() {
             className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-elegant transition hover:opacity-90"
           >
             <MessageCircle className="h-4 w-4" />
-            <span className="hidden sm:inline">WhatsApp</span>
+            <span className="hidden sm:inline">{t("cta.whatsapp")}</span>
           </a>
         </div>
       </div>
@@ -151,6 +174,7 @@ function Header() {
 
 /* ---------------- Hero ---------------- */
 function Hero() {
+  const { t } = useI18n();
   return (
     <section id="top" className="hero-gradient relative overflow-hidden">
       <div className="absolute inset-0 grain opacity-40" aria-hidden />
@@ -158,19 +182,18 @@ function Hero() {
         <div className="mx-auto max-w-3xl text-center">
           <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-border/70 bg-background/60 px-3 py-1 text-xs text-muted-foreground backdrop-blur">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--whatsapp)]" />
-            Available — replying on WhatsApp within minutes
+            {t("hero.badge")}
           </div>
 
           <h1 className="mt-6 text-balance text-5xl leading-[1.05] tracking-tight md:text-7xl">
-            Websites that turn
+            {t("hero.title1")}
             <br />
-            visitors into{" "}
-            <span className="gold-text italic">real customers</span>
+            {t("hero.title2")}{" "}
+            <span className="gold-text italic">{t("hero.title3")}</span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-xl text-balance text-base text-muted-foreground md:text-lg">
-            Premium, modern websites for salons, cafés, restaurants, gyms and
-            local businesses in Morocco. Built fast, designed to convert.
+            {t("hero.subtitle")}
           </p>
 
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -181,8 +204,8 @@ function Hero() {
               className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground shadow-elegant transition hover:opacity-90 sm:w-auto"
             >
               <MessageCircle className="h-4 w-4" />
-              Contact on WhatsApp
-              <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+              {t("cta.whatsappFull")}
+              <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5 rtl:rotate-180" />
             </a>
             <a
               href={INSTAGRAM_URL}
@@ -191,23 +214,17 @@ function Hero() {
               className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-border bg-background/70 px-6 py-3.5 text-sm font-medium text-foreground backdrop-blur transition hover:bg-accent sm:w-auto"
             >
               <Instagram className="h-4 w-4" />
-              Follow on Instagram
+              {t("cta.instagram")}
             </a>
           </div>
 
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
-            <span className="inline-flex items-center gap-1.5">
-              <Check className="h-3.5 w-3.5 text-[color:var(--gold)]" />
-              Fully custom design
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Check className="h-3.5 w-3.5 text-[color:var(--gold)]" />
-              Mobile + desktop optimized
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Check className="h-3.5 w-3.5 text-[color:var(--gold)]" />
-              Fast delivery
-            </span>
+            {[t("hero.tag1"), t("hero.tag2"), t("hero.tag3")].map((tag) => (
+              <span key={tag} className="inline-flex items-center gap-1.5">
+                <Check className="h-3.5 w-3.5 text-[color:var(--gold)]" />
+                {tag}
+              </span>
+            ))}
           </div>
         </div>
 
@@ -218,7 +235,7 @@ function Hero() {
               <span className="h-2.5 w-2.5 rounded-full bg-muted" />
               <span className="h-2.5 w-2.5 rounded-full bg-muted" />
               <span className="h-2.5 w-2.5 rounded-full bg-muted" />
-              <div className="ml-4 flex-1 rounded-md bg-muted px-3 py-1 text-xs text-muted-foreground">
+              <div className="ms-4 flex-1 rounded-md bg-muted px-3 py-1 text-xs text-muted-foreground">
                 yourbusiness.ma
               </div>
             </div>
@@ -255,13 +272,19 @@ function Hero() {
 
 /* ---------------- Trust strip ---------------- */
 function TrustStrip() {
+  const { t } = useI18n();
   const items = [
-    "Salons", "Cafés", "Restaurants", "Gyms", "Boutiques", "Freelancers",
+    t("trust.salons"),
+    t("trust.cafes"),
+    t("trust.restaurants"),
+    t("trust.gyms"),
+    t("trust.shops"),
+    t("trust.freelancers"),
   ];
   return (
     <section className="border-y border-border bg-background/60">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-10 gap-y-3 px-6 py-6 text-sm uppercase tracking-[0.2em] text-muted-foreground">
-        <span className="text-xs text-muted-foreground/70">Trusted by local businesses —</span>
+        <span className="text-xs text-muted-foreground/70">{t("trust.label")}</span>
         {items.map((i) => (
           <span key={i} className="font-display text-base normal-case tracking-normal text-foreground/70">
             {i}
@@ -274,20 +297,21 @@ function TrustStrip() {
 
 /* ---------------- For Who ---------------- */
 function ForWho() {
+  const { t } = useI18n();
   const cards = [
-    { icon: Scissors, title: "Salons & Spas", desc: "Showcase services, prices and let clients book in seconds." },
-    { icon: Coffee, title: "Cafés", desc: "A beautiful menu, hours and location — always up to date." },
-    { icon: UtensilsCrossed, title: "Restaurants", desc: "Menu, reservations, photos and reviews in one place." },
-    { icon: Dumbbell, title: "Gyms & Studios", desc: "Classes, coaches, schedules and membership info." },
-    { icon: Store, title: "Local Shops", desc: "Present your products and bring foot traffic in." },
-    { icon: Briefcase, title: "Freelancers", desc: "A premium portfolio that builds instant credibility." },
+    { icon: Scissors, title: t("who.salons.t"), desc: t("who.salons.d") },
+    { icon: Coffee, title: t("who.cafes.t"), desc: t("who.cafes.d") },
+    { icon: UtensilsCrossed, title: t("who.rest.t"), desc: t("who.rest.d") },
+    { icon: Dumbbell, title: t("who.gyms.t"), desc: t("who.gyms.d") },
+    { icon: Store, title: t("who.shops.t"), desc: t("who.shops.d") },
+    { icon: Briefcase, title: t("who.free.t"), desc: t("who.free.d") },
   ];
   return (
     <section id="services" className="mx-auto max-w-6xl px-6 py-24">
       <SectionHeader
-        eyebrow="Who it's for"
-        title="Built for the businesses that make Morocco move."
-        subtitle="Every site is shaped around your specific business — not a generic template."
+        eyebrow={t("who.eyebrow")}
+        title={t("who.title")}
+        subtitle={t("who.subtitle")}
       />
       <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {cards.map(({ icon: Icon, title, desc }) => (
@@ -309,23 +333,24 @@ function ForWho() {
 
 /* ---------------- Features ---------------- */
 function Features() {
+  const { t } = useI18n();
   const features = [
-    { icon: Palette, title: "Premium custom design", desc: "A unique look that matches your brand, colors and atmosphere — no recycled templates." },
-    { icon: Smartphone, title: "Mobile-first & desktop perfect", desc: "Looks flawless on every phone, tablet and screen your customers use." },
-    { icon: MessageCircle, title: "WhatsApp integration", desc: "One tap and your client is in your chat — ready to book or buy." },
-    { icon: MapPin, title: "Google Maps built in", desc: "Customers find you and get directions without leaving your site." },
-    { icon: Instagram, title: "Social media connected", desc: "Instagram, TikTok, Facebook — all your channels, neatly integrated." },
-    { icon: Search, title: "SEO-ready structure", desc: "Built so Google can read, rank and recommend you locally." },
-    { icon: Zap, title: "Fast loading performance", desc: "Optimized for speed so visitors stay and convert." },
-    { icon: ShieldCheck, title: "Secure & reliable", desc: "Clean code, HTTPS by default, and zero shady plugins." },
+    { icon: Palette, title: t("feat.design.t"), desc: t("feat.design.d") },
+    { icon: Smartphone, title: t("feat.mobile.t"), desc: t("feat.mobile.d") },
+    { icon: MessageCircle, title: t("feat.wa.t"), desc: t("feat.wa.d") },
+    { icon: MapPin, title: t("feat.maps.t"), desc: t("feat.maps.d") },
+    { icon: Instagram, title: t("feat.social.t"), desc: t("feat.social.d") },
+    { icon: Search, title: t("feat.seo.t"), desc: t("feat.seo.d") },
+    { icon: Zap, title: t("feat.speed.t"), desc: t("feat.speed.d") },
+    { icon: ShieldCheck, title: t("feat.secure.t"), desc: t("feat.secure.d") },
   ];
   return (
     <section id="features" className="border-y border-border bg-secondary/40">
       <div className="mx-auto max-w-6xl px-6 py-24">
         <SectionHeader
-          eyebrow="What's included"
-          title="Everything your business needs, nothing it doesn't."
-          subtitle="A complete, ready-to-grow online presence — engineered to convert visitors into customers."
+          eyebrow={t("feat.eyebrow")}
+          title={t("feat.title")}
+          subtitle={t("feat.subtitle")}
         />
         <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
           {features.map(({ icon: Icon, title, desc }) => (
@@ -343,20 +368,18 @@ function Features() {
 
 /* ---------------- Benefits ---------------- */
 function Benefits() {
+  const { t } = useI18n();
   const benefits = [
-    { icon: TrendingUp, title: "Gain more customers", desc: "Turn online searches and Instagram visits into real bookings and walk-ins." },
-    { icon: ShieldCheck, title: "Look more professional", desc: "A premium website instantly builds trust — before a client even calls you." },
-    { icon: Search, title: "Appear on Google", desc: "Be the business that shows up when locals search what you offer." },
-    { icon: Clock, title: "Open 24/7", desc: "Your website sells, books and informs even while you're closed." },
-    { icon: MapPin, title: "Boost local visibility", desc: "Strengthen your presence on Google Maps and social platforms." },
-    { icon: Sparkles, title: "Convert more visitors", desc: "Clear CTAs, smart structure, and trust signals that turn clicks into clients." },
+    { icon: TrendingUp, title: t("ben.gain.t"), desc: t("ben.gain.d") },
+    { icon: ShieldCheck, title: t("ben.pro.t"), desc: t("ben.pro.d") },
+    { icon: Search, title: t("ben.google.t"), desc: t("ben.google.d") },
+    { icon: Clock, title: t("ben.open.t"), desc: t("ben.open.d") },
+    { icon: MapPin, title: t("ben.local.t"), desc: t("ben.local.d") },
+    { icon: Sparkles, title: t("ben.convert.t"), desc: t("ben.convert.d") },
   ];
   return (
     <section className="mx-auto max-w-6xl px-6 py-24">
-      <SectionHeader
-        eyebrow="The result"
-        title="Not just a website. A business growth tool."
-      />
+      <SectionHeader eyebrow={t("ben.eyebrow")} title={t("ben.title")} />
       <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {benefits.map(({ icon: Icon, title, desc }) => (
           <div key={title} className="flex gap-4">
@@ -376,18 +399,19 @@ function Benefits() {
 
 /* ---------------- Process ---------------- */
 function Process() {
+  const { t } = useI18n();
   const steps = [
-    { n: "01", title: "Quick chat", desc: "Message us on WhatsApp or Instagram. We listen to your business, your style and your goals." },
-    { n: "02", title: "Personalized design", desc: "Colors, atmosphere, branding, menu, services — we tailor every detail to you." },
-    { n: "03", title: "Fast delivery", desc: "Your website goes live quickly, ready to attract customers from day one." },
+    { n: "01", title: t("proc.s1.t"), desc: t("proc.s1.d") },
+    { n: "02", title: t("proc.s2.t"), desc: t("proc.s2.d") },
+    { n: "03", title: t("proc.s3.t"), desc: t("proc.s3.d") },
   ];
   return (
     <section id="process" className="navy-section text-primary-foreground">
       <div className="mx-auto max-w-6xl px-6 py-24">
         <SectionHeader
-          eyebrow="How it works"
-          title="A premium consultation. A simple process."
-          subtitle="Full transparency. You're involved at every step — your business, your decisions."
+          eyebrow={t("proc.eyebrow")}
+          title={t("proc.title")}
+          subtitle={t("proc.subtitle")}
           dark
         />
         <div className="mt-14 grid gap-8 md:grid-cols-3">
@@ -407,7 +431,7 @@ function Process() {
             className="inline-flex items-center gap-2 rounded-full bg-[color:var(--gold)] px-6 py-3 text-sm font-medium text-primary shadow-gold transition hover:brightness-105"
           >
             <MessageCircle className="h-4 w-4" />
-            Start the conversation on WhatsApp
+            {t("cta.startConv")}
           </a>
           <a
             href={INSTAGRAM_URL}
@@ -416,7 +440,7 @@ function Process() {
             className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-primary-foreground transition hover:bg-white/10"
           >
             <Instagram className="h-4 w-4" />
-            Or DM us on Instagram
+            {t("cta.orDm")}
           </a>
         </div>
       </div>
@@ -426,21 +450,16 @@ function Process() {
 
 /* ---------------- Why now ---------------- */
 function WhyNow() {
-  const points = [
-    "Every day without a website, customers are choosing your competitors.",
-    "Fully personalized — colors, atmosphere, branding and content shaped around your business.",
-    "A real time saver: we handle everything end-to-end while you focus on running your business.",
-    "Total transparency — direct communication on WhatsApp or Instagram, no agency middlemen.",
-    "Fast delivery, premium quality, and ongoing support if you need it.",
-  ];
+  const { t } = useI18n();
+  const points = [t("why.p1"), t("why.p2"), t("why.p3"), t("why.p4"), t("why.p5")];
   return (
     <section className="mx-auto max-w-6xl px-6 py-24">
       <div className="grid items-center gap-12 md:grid-cols-2">
         <div>
           <SectionHeader
-            eyebrow="Why now"
-            title="Not having a website costs more than getting one."
-            subtitle="Customers expect to find you online. If they can't, they pick the business that they can."
+            eyebrow={t("why.eyebrow")}
+            title={t("why.title")}
+            subtitle={t("why.subtitle")}
             align="left"
           />
         </div>
@@ -459,19 +478,17 @@ function WhyNow() {
 
 /* ---------------- Visibility ---------------- */
 function Visibility() {
+  const { t } = useI18n();
   return (
     <section className="border-y border-border bg-secondary/40">
       <div className="mx-auto max-w-6xl px-6 py-24">
-        <SectionHeader
-          eyebrow="Visibility"
-          title="Your business — everywhere it should be."
-        />
+        <SectionHeader eyebrow={t("vis.eyebrow")} title={t("vis.title")} />
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {[
-            { icon: MapPin, title: "Google Maps", desc: "Linked to your business profile so locals find you instantly." },
-            { icon: Search, title: "Google Search", desc: "Discoverable when customers search what you actually offer." },
-            { icon: Instagram, title: "Instagram & TikTok", desc: "Share one link that does everything — bookings, menu, contact." },
-            { icon: MessageCircle, title: "WhatsApp", desc: "Direct conversations with customers in a single tap." },
+            { icon: MapPin, title: t("vis.maps.t"), desc: t("vis.maps.d") },
+            { icon: Search, title: t("vis.search.t"), desc: t("vis.search.d") },
+            { icon: Instagram, title: t("vis.social.t"), desc: t("vis.social.d") },
+            { icon: MessageCircle, title: t("vis.wa.t"), desc: t("vis.wa.d") },
           ].map(({ icon: Icon, title, desc }) => (
             <div key={title} className="rounded-2xl border border-border bg-card p-6">
               <Icon className="h-5 w-5 text-primary" />
@@ -487,14 +504,15 @@ function Visibility() {
 
 /* ---------------- Testimonials ---------------- */
 function Testimonials() {
+  const { t } = useI18n();
   const quotes = [
-    { name: "Yasmine — Salon owner, Casablanca", text: "Our new site brought in bookings within the first week. Clean, fast, and exactly what we wanted." },
-    { name: "Karim — Café manager, Rabat", text: "Customers find us on Google now. The WhatsApp button alone changed everything." },
-    { name: "Sara — Boutique, Marrakech", text: "Premium feel for a price I didn't think was possible. Worth every dirham." },
+    { name: t("test.n1"), text: t("test.q1") },
+    { name: t("test.n2"), text: t("test.q2") },
+    { name: t("test.n3"), text: t("test.q3") },
   ];
   return (
     <section className="mx-auto max-w-6xl px-6 py-24">
-      <SectionHeader eyebrow="Trust" title="Loved by local business owners." />
+      <SectionHeader eyebrow={t("test.eyebrow")} title={t("test.title")} />
       <div className="mt-12 grid gap-6 md:grid-cols-3">
         {quotes.map((q) => (
           <figure key={q.name} className="rounded-2xl border border-border bg-card p-6">
@@ -518,17 +536,10 @@ function Testimonials() {
 
 /* ---------------- Pricing ---------------- */
 function Pricing() {
+  const { t } = useI18n();
   const includes = [
-    "Full professional website",
-    "Custom premium design",
-    "Mobile + desktop optimization",
-    "SEO-ready structure",
-    "WhatsApp integration",
-    "Google Maps integration",
-    "Social media links",
-    "Business-specific sections (menu, services, booking…)",
-    "Fast loading performance",
-    "Fast delivery",
+    t("price.i1"), t("price.i2"), t("price.i3"), t("price.i4"), t("price.i5"),
+    t("price.i6"), t("price.i7"), t("price.i8"), t("price.i9"), t("price.i10"),
   ];
   return (
     <section id="pricing" className="relative overflow-hidden">
@@ -536,14 +547,13 @@ function Pricing() {
         <div className="mx-auto max-w-4xl px-6 py-28 text-center text-primary-foreground">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.2em] text-primary-foreground/80">
             <Sparkles className="h-3.5 w-3.5 text-[color:var(--gold)]" />
-            One simple offer
+            {t("price.badge")}
           </span>
           <h2 className="mt-6 text-balance text-4xl leading-tight md:text-6xl">
-            Complete Website Package
+            {t("price.title")}
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-primary-foreground/70">
-            Everything above — designed, built and delivered. No hidden costs,
-            no monthly traps.
+            {t("price.subtitle")}
           </p>
 
           <div className="mx-auto mt-10 max-w-2xl rounded-3xl border border-white/15 bg-white/[0.04] p-8 backdrop-blur md:p-12">
@@ -555,11 +565,11 @@ function Pricing() {
                 <span className="text-lg text-primary-foreground/80">MAD</span>
               </div>
               <p className="mt-2 text-xs uppercase tracking-[0.25em] text-primary-foreground/60">
-                One-time payment
+                {t("price.once")}
               </p>
             </div>
 
-            <ul className="mt-8 grid gap-3 text-left sm:grid-cols-2">
+            <ul className="mt-8 grid gap-3 text-start sm:grid-cols-2">
               {includes.map((i) => (
                 <li key={i} className="flex items-start gap-2 text-sm text-primary-foreground/90">
                   <Check className="mt-0.5 h-4 w-4 shrink-0 text-[color:var(--gold)]" />
@@ -576,7 +586,7 @@ function Pricing() {
                 className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-[color:var(--gold)] px-6 py-3.5 text-sm font-medium text-primary shadow-gold transition hover:brightness-105"
               >
                 <MessageCircle className="h-4 w-4" />
-                Order on WhatsApp
+                {t("cta.orderWhatsapp")}
               </a>
               <a
                 href={INSTAGRAM_URL}
@@ -585,13 +595,12 @@ function Pricing() {
                 className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-white/20 px-6 py-3.5 text-sm font-medium text-primary-foreground transition hover:bg-white/10"
               >
                 <Instagram className="h-4 w-4" />
-                DM on Instagram
+                {t("cta.dmInstagram")}
               </a>
             </div>
 
             <p className="mt-6 text-xs text-primary-foreground/60">
-              One of the most affordable professional website offers on the
-              market — without compromising on premium quality.
+              {t("price.note")}
             </p>
           </div>
         </div>
@@ -602,15 +611,15 @@ function Pricing() {
 
 /* ---------------- Final CTA ---------------- */
 function FinalCTA() {
+  const { t } = useI18n();
   return (
     <section className="mx-auto max-w-4xl px-6 py-24 text-center">
       <h2 className="text-balance text-4xl leading-tight md:text-5xl">
-        Ready to turn your visitors into{" "}
-        <span className="gold-text italic">real customers?</span>
+        {t("final.title1")}{" "}
+        <span className="gold-text italic">{t("final.title2")}</span>
       </h2>
       <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
-        Tell us about your business. We'll handle the rest — quickly, transparently,
-        and with the quality your brand deserves.
+        {t("final.subtitle")}
       </p>
       <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
         <a
@@ -620,11 +629,12 @@ function FinalCTA() {
           className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground shadow-elegant transition hover:opacity-90"
         >
           <MessageCircle className="h-4 w-4" />
-          Contact on WhatsApp
+          {t("cta.whatsappFull")}
         </a>
         <a
           href={TEL_URL}
           className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3.5 text-sm font-medium text-foreground transition hover:bg-accent"
+          dir="ltr"
         >
           <Phone className="h-4 w-4" />
           +212 701 179 697
@@ -636,6 +646,7 @@ function FinalCTA() {
 
 /* ---------------- Footer ---------------- */
 function Footer() {
+  const { t } = useI18n();
   return (
     <footer className="border-t border-border bg-secondary/40">
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-8 px-6 py-12 md:flex-row md:items-center">
@@ -647,7 +658,7 @@ function Footer() {
             <span className="font-display text-lg">Siteflow</span>
           </div>
           <p className="mt-3 max-w-xs text-sm text-muted-foreground">
-            Websites that turn visitors into real customers. Made in Morocco.
+            {t("foot.tag")}
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
@@ -658,7 +669,7 @@ function Footer() {
             className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition hover:opacity-90"
           >
             <MessageCircle className="h-4 w-4" />
-            WhatsApp
+            {t("cta.whatsapp")}
           </a>
           <a
             href={INSTAGRAM_URL}
@@ -672,6 +683,7 @@ function Footer() {
           <a
             href={TEL_URL}
             className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2.5 text-sm font-medium transition hover:bg-accent"
+            dir="ltr"
           >
             <Phone className="h-4 w-4" />
             +212 701 179 697
@@ -680,8 +692,8 @@ function Footer() {
       </div>
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 text-xs text-muted-foreground">
-          <span>© {new Date().getFullYear()} Siteflow. All rights reserved.</span>
-          <span>Made with care in Morocco</span>
+          <span>© {new Date().getFullYear()} Siteflow. {t("foot.rights")}</span>
+          <span>{t("foot.made")}</span>
         </div>
       </div>
     </footer>
@@ -696,10 +708,10 @@ function FloatingWhatsApp() {
       target="_blank"
       rel="noreferrer"
       aria-label="Chat on WhatsApp"
-      className="fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[color:var(--whatsapp)] text-white shadow-elegant transition hover:scale-105"
+      className="fixed bottom-5 end-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[color:var(--whatsapp)] text-white shadow-elegant transition hover:scale-105"
     >
       <MessageCircle className="h-6 w-6" />
-      <span className="absolute -top-1 -right-1 flex h-3 w-3">
+      <span className="absolute -top-1 -end-1 flex h-3 w-3">
         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[color:var(--whatsapp)] opacity-75" />
         <span className="relative inline-flex h-3 w-3 rounded-full bg-[color:var(--whatsapp)] border-2 border-background" />
       </span>
