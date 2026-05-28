@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import {
   ArrowRight,
@@ -15,7 +14,6 @@ import {
   ShieldCheck,
   Clock,
   TrendingUp,
-  Star,
   Scissors,
   Coffee,
   UtensilsCrossed,
@@ -23,7 +21,7 @@ import {
   Store,
   Briefcase,
 } from "lucide-react";
-import { I18nProvider, useI18n } from "@/lib/i18n";
+import { useI18n } from "@/lib/i18n";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 const WHATSAPP_URL =
@@ -31,46 +29,7 @@ const WHATSAPP_URL =
 const INSTAGRAM_URL = "https://instagram.com/siteflow.official";
 const TEL_URL = "tel:+212701179697";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Siteflow — Websites that turn visitors into real customers" },
-      {
-        name: "description",
-        content:
-          "Premium website creation for salons, cafés, restaurants, gyms and local shops in Morocco. Modern, fast, mobile-first sites built to convert.",
-      },
-      { property: "og:title", content: "Siteflow — Websites that convert" },
-      {
-        property: "og:description",
-        content:
-          "Premium custom websites for small businesses in Morocco. Built for trust, speed and growth.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [
-      { rel: "canonical", href: "/" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap",
-      },
-    ],
-  }),
-  component: IndexWrapper,
-});
-
-function IndexWrapper() {
-  return (
-    <I18nProvider>
-      <Index />
-    </I18nProvider>
-  );
-}
-
-function Index() {
+export default function App() {
   const { lang } = useI18n();
   return (
     <div
@@ -92,7 +51,6 @@ function Index() {
         <Process />
         <WhyNow />
         <Visibility />
-        <Testimonials />
         <Pricing />
         <FinalCTA />
       </main>
@@ -497,38 +455,6 @@ function Visibility() {
             </div>
           ))}
         </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- Testimonials ---------------- */
-function Testimonials() {
-  const { t } = useI18n();
-  const quotes = [
-    { name: t("test.n1"), text: t("test.q1") },
-    { name: t("test.n2"), text: t("test.q2") },
-    { name: t("test.n3"), text: t("test.q3") },
-  ];
-  return (
-    <section className="mx-auto max-w-6xl px-6 py-24">
-      <SectionHeader eyebrow={t("test.eyebrow")} title={t("test.title")} />
-      <div className="mt-12 grid gap-6 md:grid-cols-3">
-        {quotes.map((q) => (
-          <figure key={q.name} className="rounded-2xl border border-border bg-card p-6">
-            <div className="flex gap-0.5 text-[color:var(--gold)]">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="h-4 w-4 fill-current" />
-              ))}
-            </div>
-            <blockquote className="mt-4 font-display text-lg leading-snug text-foreground">
-              "{q.text}"
-            </blockquote>
-            <figcaption className="mt-4 text-xs uppercase tracking-wider text-muted-foreground">
-              {q.name}
-            </figcaption>
-          </figure>
-        ))}
       </div>
     </section>
   );
