@@ -366,59 +366,6 @@ function Process() {
   );
 }
 
-/* ---------------- Why now ---------------- */
-function WhyNow() {
-  const { t } = useI18n();
-  const points = [t("why.p1"), t("why.p2"), t("why.p3"), t("why.p4"), t("why.p5")];
-  return (
-    <section className="mx-auto max-w-6xl px-6 py-24">
-      <div className="grid items-center gap-12 md:grid-cols-2">
-        <div>
-          <SectionHeader
-            eyebrow={t("why.eyebrow")}
-            title={t("why.title")}
-            subtitle={t("why.subtitle")}
-            align="left"
-          />
-        </div>
-        <ul className="space-y-4">
-          {points.map((p) => (
-            <li key={p} className="flex gap-3 rounded-xl border border-border bg-card p-4">
-              <Check className="mt-0.5 h-5 w-5 shrink-0 text-[color:var(--gold)]" />
-              <span className="text-sm text-foreground/90">{p}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- Visibility ---------------- */
-function Visibility() {
-  const { t } = useI18n();
-  return (
-    <section className="border-y border-border bg-secondary/40">
-      <div className="mx-auto max-w-6xl px-6 py-24">
-        <SectionHeader eyebrow={t("vis.eyebrow")} title={t("vis.title")} />
-        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {[
-            { icon: MapPin, title: t("vis.maps.t"), desc: t("vis.maps.d") },
-            { icon: Search, title: t("vis.search.t"), desc: t("vis.search.d") },
-            { icon: Instagram, title: t("vis.social.t"), desc: t("vis.social.d") },
-            { icon: MessageCircle, title: t("vis.wa.t"), desc: t("vis.wa.d") },
-          ].map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="rounded-2xl border border-border bg-card p-6">
-              <Icon className="h-5 w-5 text-primary" />
-              <h3 className="mt-4 text-lg">{title}</h3>
-              <p className="mt-1.5 text-sm text-muted-foreground">{desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ---------------- Pricing ---------------- */
 function Pricing() {
