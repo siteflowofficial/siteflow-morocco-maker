@@ -250,7 +250,7 @@ function ForWho() {
         {cards.map(({ icon: Icon, title, desc }) => (
           <div
             key={title}
-            className="group rounded-2xl border border-border bg-card p-6 transition hover:border-[color:var(--gold)] hover:shadow-elegant"
+            className="card-lift group rounded-2xl border border-border bg-card p-6"
           >
             <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-secondary text-primary transition group-hover:bg-[color:var(--gold-soft)]">
               <Icon className="h-5 w-5" />
