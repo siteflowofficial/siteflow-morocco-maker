@@ -26,7 +26,7 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 const WHATSAPP_URL =
   "https://wa.me/212701179697?text=Bonjour%20je%20veux%20un%20site%20web";
-const INSTAGRAM_URL = "https://instagram.com/siteflow.official";
+const INSTAGRAM_URL = "https://instagram.com/sitebytilak";
 const TEL_URL = "tel:+212701179697";
 
 export default function App() {
@@ -49,8 +49,6 @@ export default function App() {
         <Features />
         <Benefits />
         <Process />
-        <WhyNow />
-        <Visibility />
         <Pricing />
         <FinalCTA />
       </main>
@@ -87,11 +85,13 @@ function Header() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#top" className="flex items-center gap-2">
-          <div className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
-            <Sparkles className="h-4 w-4" />
+        <a href="#top" className="group flex items-center gap-2.5">
+          <div className="relative grid h-9 w-9 place-items-center rounded-xl bg-primary shadow-elegant ring-1 ring-[color:var(--gold)]/40 transition group-hover:ring-[color:var(--gold)]">
+            <Sparkles className="h-4 w-4 text-[color:var(--gold)]" />
           </div>
-          <span className="font-display text-lg tracking-tight">Siteflow</span>
+          <span className="font-display text-lg tracking-tight">
+            Site<span className="gold-text">bytilak</span>
+          </span>
         </a>
         <nav className="hidden items-center gap-8 md:flex">
           {navItems.map(([label, href]) => (
@@ -136,10 +136,23 @@ function Hero() {
   return (
     <section id="top" className="hero-gradient relative overflow-hidden">
       <div className="absolute inset-0 grain opacity-40" aria-hidden />
+      <div
+        className="animate-orb absolute -top-20 left-1/4 h-72 w-72 rounded-full blur-3xl"
+        style={{ background: "radial-gradient(circle, oklch(0.74 0.12 75 / 0.35), transparent 70%)" }}
+        aria-hidden
+      />
+      <div
+        className="animate-orb absolute top-40 right-1/4 h-80 w-80 rounded-full blur-3xl"
+        style={{ background: "radial-gradient(circle, oklch(0.35 0.08 255 / 0.25), transparent 70%)", animationDelay: "-4s" }}
+        aria-hidden
+      />
       <div className="relative mx-auto max-w-6xl px-6 pb-24 pt-16 md:pb-32 md:pt-24">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center animate-fade-up">
           <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-border/70 bg-background/60 px-3 py-1 text-xs text-muted-foreground backdrop-blur">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--whatsapp)]" />
+            <span className="relative inline-flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[color:var(--whatsapp)] opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[color:var(--whatsapp)]" />
+            </span>
             {t("hero.badge")}
           </div>
 
@@ -159,7 +172,7 @@ function Hero() {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noreferrer"
-              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground shadow-elegant transition hover:opacity-90 sm:w-auto"
+              className="btn-shine group inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground shadow-elegant ring-1 ring-[color:var(--gold)]/30 transition hover:-translate-y-0.5 hover:shadow-gold sm:w-auto"
             >
               <MessageCircle className="h-4 w-4" />
               {t("cta.whatsappFull")}
@@ -183,44 +196,6 @@ function Hero() {
                 {tag}
               </span>
             ))}
-          </div>
-        </div>
-
-        {/* Browser mock */}
-        <div className="mx-auto mt-16 max-w-4xl">
-          <div className="animate-float rounded-2xl border border-border bg-card shadow-elegant">
-            <div className="flex items-center gap-1.5 border-b border-border px-4 py-3">
-              <span className="h-2.5 w-2.5 rounded-full bg-muted" />
-              <span className="h-2.5 w-2.5 rounded-full bg-muted" />
-              <span className="h-2.5 w-2.5 rounded-full bg-muted" />
-              <div className="ms-4 flex-1 rounded-md bg-muted px-3 py-1 text-xs text-muted-foreground">
-                yourbusiness.ma
-              </div>
-            </div>
-            <div className="grid gap-6 p-8 md:grid-cols-5">
-              <div className="space-y-3 md:col-span-3">
-                <div className="h-3 w-24 rounded-full bg-[color:var(--gold-soft)]" />
-                <div className="h-8 w-3/4 rounded-md bg-foreground/90" />
-                <div className="h-8 w-2/3 rounded-md bg-foreground/80" />
-                <div className="h-3 w-full rounded-full bg-muted" />
-                <div className="h-3 w-5/6 rounded-full bg-muted" />
-                <div className="flex gap-2 pt-3">
-                  <div className="h-9 w-32 rounded-full bg-primary" />
-                  <div className="h-9 w-28 rounded-full border border-border" />
-                </div>
-              </div>
-              <div className="rounded-xl bg-secondary p-4 md:col-span-2">
-                <div className="mb-2 h-3 w-20 rounded-full bg-foreground/60" />
-                <div className="space-y-2">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="flex items-center justify-between rounded-md bg-background p-2.5">
-                      <div className="h-2.5 w-20 rounded-full bg-muted" />
-                      <div className="h-2.5 w-10 rounded-full bg-[color:var(--gold)]" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -275,7 +250,7 @@ function ForWho() {
         {cards.map(({ icon: Icon, title, desc }) => (
           <div
             key={title}
-            className="group rounded-2xl border border-border bg-card p-6 transition hover:border-[color:var(--gold)] hover:shadow-elegant"
+            className="card-lift group rounded-2xl border border-border bg-card p-6"
           >
             <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-secondary text-primary transition group-hover:bg-[color:var(--gold-soft)]">
               <Icon className="h-5 w-5" />
@@ -298,9 +273,7 @@ function Features() {
     { icon: MessageCircle, title: t("feat.wa.t"), desc: t("feat.wa.d") },
     { icon: MapPin, title: t("feat.maps.t"), desc: t("feat.maps.d") },
     { icon: Instagram, title: t("feat.social.t"), desc: t("feat.social.d") },
-    { icon: Search, title: t("feat.seo.t"), desc: t("feat.seo.d") },
     { icon: Zap, title: t("feat.speed.t"), desc: t("feat.speed.d") },
-    { icon: ShieldCheck, title: t("feat.secure.t"), desc: t("feat.secure.d") },
   ];
   return (
     <section id="features" className="border-y border-border bg-secondary/40">
@@ -312,7 +285,7 @@ function Features() {
         />
         <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
           {features.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="bg-card p-6">
+            <div key={title} className="group bg-card p-6 transition hover:bg-secondary/50">
               <Icon className="h-5 w-5 text-[color:var(--gold)]" />
               <h3 className="mt-4 text-lg">{title}</h3>
               <p className="mt-1.5 text-sm text-muted-foreground">{desc}</p>
@@ -374,7 +347,7 @@ function Process() {
         />
         <div className="mt-14 grid gap-8 md:grid-cols-3">
           {steps.map((s) => (
-            <div key={s.n} className="rounded-2xl border border-white/10 bg-white/5 p-7 backdrop-blur">
+            <div key={s.n} className="group rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur transition hover:-translate-y-1 hover:border-[color:var(--gold)]/50 hover:bg-white/[0.07]">
               <div className="font-display text-3xl gold-text">{s.n}</div>
               <h3 className="mt-3 text-xl text-primary-foreground">{s.title}</h3>
               <p className="mt-2 text-sm text-primary-foreground/70">{s.desc}</p>
@@ -406,65 +379,12 @@ function Process() {
   );
 }
 
-/* ---------------- Why now ---------------- */
-function WhyNow() {
-  const { t } = useI18n();
-  const points = [t("why.p1"), t("why.p2"), t("why.p3"), t("why.p4"), t("why.p5")];
-  return (
-    <section className="mx-auto max-w-6xl px-6 py-24">
-      <div className="grid items-center gap-12 md:grid-cols-2">
-        <div>
-          <SectionHeader
-            eyebrow={t("why.eyebrow")}
-            title={t("why.title")}
-            subtitle={t("why.subtitle")}
-            align="left"
-          />
-        </div>
-        <ul className="space-y-4">
-          {points.map((p) => (
-            <li key={p} className="flex gap-3 rounded-xl border border-border bg-card p-4">
-              <Check className="mt-0.5 h-5 w-5 shrink-0 text-[color:var(--gold)]" />
-              <span className="text-sm text-foreground/90">{p}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- Visibility ---------------- */
-function Visibility() {
-  const { t } = useI18n();
-  return (
-    <section className="border-y border-border bg-secondary/40">
-      <div className="mx-auto max-w-6xl px-6 py-24">
-        <SectionHeader eyebrow={t("vis.eyebrow")} title={t("vis.title")} />
-        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {[
-            { icon: MapPin, title: t("vis.maps.t"), desc: t("vis.maps.d") },
-            { icon: Search, title: t("vis.search.t"), desc: t("vis.search.d") },
-            { icon: Instagram, title: t("vis.social.t"), desc: t("vis.social.d") },
-            { icon: MessageCircle, title: t("vis.wa.t"), desc: t("vis.wa.d") },
-          ].map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="rounded-2xl border border-border bg-card p-6">
-              <Icon className="h-5 w-5 text-primary" />
-              <h3 className="mt-4 text-lg">{title}</h3>
-              <p className="mt-1.5 text-sm text-muted-foreground">{desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ---------------- Pricing ---------------- */
 function Pricing() {
   const { t } = useI18n();
   const includes = [
-    t("price.i1"), t("price.i2"), t("price.i3"), t("price.i4"), t("price.i5"),
+    t("price.i1"), t("price.i2"), t("price.i3"), t("price.i5"),
     t("price.i6"), t("price.i7"), t("price.i8"), t("price.i9"), t("price.i10"),
   ];
   return (
@@ -577,11 +497,13 @@ function Footer() {
     <footer className="border-t border-border bg-secondary/40">
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-8 px-6 py-12 md:flex-row md:items-center">
         <div>
-          <div className="flex items-center gap-2">
-            <div className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
-              <Sparkles className="h-4 w-4" />
+          <div className="flex items-center gap-2.5">
+            <div className="grid h-9 w-9 place-items-center rounded-xl bg-primary ring-1 ring-[color:var(--gold)]/40 shadow-elegant">
+              <Sparkles className="h-4 w-4 text-[color:var(--gold)]" />
             </div>
-            <span className="font-display text-lg">Siteflow</span>
+            <span className="font-display text-lg">
+              Site<span className="gold-text">bytilak</span>
+            </span>
           </div>
           <p className="mt-3 max-w-xs text-sm text-muted-foreground">
             {t("foot.tag")}
@@ -604,7 +526,7 @@ function Footer() {
             className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2.5 text-sm font-medium transition hover:bg-accent"
           >
             <Instagram className="h-4 w-4" />
-            @siteflow.official
+            @sitebytilak
           </a>
           <a
             href={TEL_URL}
@@ -618,7 +540,7 @@ function Footer() {
       </div>
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 text-xs text-muted-foreground">
-          <span>© {new Date().getFullYear()} Siteflow. {t("foot.rights")}</span>
+          <span>© {new Date().getFullYear()} Sitebytilak. {t("foot.rights")}</span>
           <span>{t("foot.made")}</span>
         </div>
       </div>
