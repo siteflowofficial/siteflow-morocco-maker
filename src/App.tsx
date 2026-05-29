@@ -513,7 +513,7 @@ function Footer() {
             className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2.5 text-sm font-medium transition hover:bg-accent"
           >
             <Instagram className="h-4 w-4" />
-            @siteflow.official
+            @sitebytilak
           </a>
           <a
             href={TEL_URL}
