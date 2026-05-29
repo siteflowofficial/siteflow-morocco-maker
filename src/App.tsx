@@ -26,7 +26,7 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 const WHATSAPP_URL =
   "https://wa.me/212701179697?text=Bonjour%20je%20veux%20un%20site%20web";
-const INSTAGRAM_URL = "https://instagram.com/siteflow.official";
+const INSTAGRAM_URL = "https://instagram.com/sitebytilak";
 const TEL_URL = "tel:+212701179697";
 
 export default function App() {
