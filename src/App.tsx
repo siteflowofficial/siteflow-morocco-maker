@@ -185,44 +185,6 @@ function Hero() {
             ))}
           </div>
         </div>
-
-        {/* Browser mock */}
-        <div className="mx-auto mt-16 max-w-4xl">
-          <div className="animate-float rounded-2xl border border-border bg-card shadow-elegant">
-            <div className="flex items-center gap-1.5 border-b border-border px-4 py-3">
-              <span className="h-2.5 w-2.5 rounded-full bg-muted" />
-              <span className="h-2.5 w-2.5 rounded-full bg-muted" />
-              <span className="h-2.5 w-2.5 rounded-full bg-muted" />
-              <div className="ms-4 flex-1 rounded-md bg-muted px-3 py-1 text-xs text-muted-foreground">
-                yourbusiness.ma
-              </div>
-            </div>
-            <div className="grid gap-6 p-8 md:grid-cols-5">
-              <div className="space-y-3 md:col-span-3">
-                <div className="h-3 w-24 rounded-full bg-[color:var(--gold-soft)]" />
-                <div className="h-8 w-3/4 rounded-md bg-foreground/90" />
-                <div className="h-8 w-2/3 rounded-md bg-foreground/80" />
-                <div className="h-3 w-full rounded-full bg-muted" />
-                <div className="h-3 w-5/6 rounded-full bg-muted" />
-                <div className="flex gap-2 pt-3">
-                  <div className="h-9 w-32 rounded-full bg-primary" />
-                  <div className="h-9 w-28 rounded-full border border-border" />
-                </div>
-              </div>
-              <div className="rounded-xl bg-secondary p-4 md:col-span-2">
-                <div className="mb-2 h-3 w-20 rounded-full bg-foreground/60" />
-                <div className="space-y-2">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="flex items-center justify-between rounded-md bg-background p-2.5">
-                      <div className="h-2.5 w-20 rounded-full bg-muted" />
-                      <div className="h-2.5 w-10 rounded-full bg-[color:var(--gold)]" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
