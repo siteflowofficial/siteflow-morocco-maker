@@ -260,9 +260,7 @@ function Features() {
     { icon: MessageCircle, title: t("feat.wa.t"), desc: t("feat.wa.d") },
     { icon: MapPin, title: t("feat.maps.t"), desc: t("feat.maps.d") },
     { icon: Instagram, title: t("feat.social.t"), desc: t("feat.social.d") },
-    { icon: Search, title: t("feat.seo.t"), desc: t("feat.seo.d") },
     { icon: Zap, title: t("feat.speed.t"), desc: t("feat.speed.d") },
-    { icon: ShieldCheck, title: t("feat.secure.t"), desc: t("feat.secure.d") },
   ];
   return (
     <section id="features" className="border-y border-border bg-secondary/40">
