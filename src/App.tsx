@@ -49,8 +49,6 @@ export default function App() {
         <Features />
         <Benefits />
         <Process />
-        <WhyNow />
-        <Visibility />
         <Pricing />
         <FinalCTA />
       </main>
