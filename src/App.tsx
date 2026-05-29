@@ -371,7 +371,7 @@ function Process() {
 function Pricing() {
   const { t } = useI18n();
   const includes = [
-    t("price.i1"), t("price.i2"), t("price.i3"), t("price.i4"), t("price.i5"),
+    t("price.i1"), t("price.i2"), t("price.i3"), t("price.i5"),
     t("price.i6"), t("price.i7"), t("price.i8"), t("price.i9"), t("price.i10"),
   ];
   return (
