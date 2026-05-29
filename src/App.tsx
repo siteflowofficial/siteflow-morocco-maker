@@ -347,7 +347,7 @@ function Process() {
         />
         <div className="mt-14 grid gap-8 md:grid-cols-3">
           {steps.map((s) => (
-            <div key={s.n} className="rounded-2xl border border-white/10 bg-white/5 p-7 backdrop-blur">
+            <div key={s.n} className="group rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur transition hover:-translate-y-1 hover:border-[color:var(--gold)]/50 hover:bg-white/[0.07]">
               <div className="font-display text-3xl gold-text">{s.n}</div>
               <h3 className="mt-3 text-xl text-primary-foreground">{s.title}</h3>
               <p className="mt-2 text-sm text-primary-foreground/70">{s.desc}</p>
