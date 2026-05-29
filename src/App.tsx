@@ -136,10 +136,23 @@ function Hero() {
   return (
     <section id="top" className="hero-gradient relative overflow-hidden">
       <div className="absolute inset-0 grain opacity-40" aria-hidden />
+      <div
+        className="animate-orb absolute -top-20 left-1/4 h-72 w-72 rounded-full blur-3xl"
+        style={{ background: "radial-gradient(circle, oklch(0.74 0.12 75 / 0.35), transparent 70%)" }}
+        aria-hidden
+      />
+      <div
+        className="animate-orb absolute top-40 right-1/4 h-80 w-80 rounded-full blur-3xl"
+        style={{ background: "radial-gradient(circle, oklch(0.35 0.08 255 / 0.25), transparent 70%)", animationDelay: "-4s" }}
+        aria-hidden
+      />
       <div className="relative mx-auto max-w-6xl px-6 pb-24 pt-16 md:pb-32 md:pt-24">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center animate-fade-up">
           <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-border/70 bg-background/60 px-3 py-1 text-xs text-muted-foreground backdrop-blur">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--whatsapp)]" />
+            <span className="relative inline-flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[color:var(--whatsapp)] opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[color:var(--whatsapp)]" />
+            </span>
             {t("hero.badge")}
           </div>
 
@@ -159,7 +172,7 @@ function Hero() {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noreferrer"
-              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground shadow-elegant transition hover:opacity-90 sm:w-auto"
+              className="btn-shine group inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground shadow-elegant ring-1 ring-[color:var(--gold)]/30 transition hover:-translate-y-0.5 hover:shadow-gold sm:w-auto"
             >
               <MessageCircle className="h-4 w-4" />
               {t("cta.whatsappFull")}
