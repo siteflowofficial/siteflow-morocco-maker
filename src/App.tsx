@@ -484,11 +484,13 @@ function Footer() {
     <footer className="border-t border-border bg-secondary/40">
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-8 px-6 py-12 md:flex-row md:items-center">
         <div>
-          <div className="flex items-center gap-2">
-            <div className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
-              <Sparkles className="h-4 w-4" />
+          <div className="flex items-center gap-2.5">
+            <div className="grid h-9 w-9 place-items-center rounded-xl bg-primary ring-1 ring-[color:var(--gold)]/40 shadow-elegant">
+              <Sparkles className="h-4 w-4 text-[color:var(--gold)]" />
             </div>
-            <span className="font-display text-lg">Siteflow</span>
+            <span className="font-display text-lg">
+              Site<span className="gold-text">bytilak</span>
+            </span>
           </div>
           <p className="mt-3 max-w-xs text-sm text-muted-foreground">
             {t("foot.tag")}
