@@ -527,7 +527,7 @@ function Footer() {
       </div>
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 text-xs text-muted-foreground">
-          <span>© {new Date().getFullYear()} Siteflow. {t("foot.rights")}</span>
+          <span>© {new Date().getFullYear()} Sitebytilak. {t("foot.rights")}</span>
           <span>{t("foot.made")}</span>
         </div>
       </div>
