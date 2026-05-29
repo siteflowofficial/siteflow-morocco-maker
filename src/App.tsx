@@ -285,7 +285,7 @@ function Features() {
         />
         <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
           {features.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="bg-card p-6">
+            <div key={title} className="group bg-card p-6 transition hover:bg-secondary/50">
               <Icon className="h-5 w-5 text-[color:var(--gold)]" />
               <h3 className="mt-4 text-lg">{title}</h3>
               <p className="mt-1.5 text-sm text-muted-foreground">{desc}</p>
