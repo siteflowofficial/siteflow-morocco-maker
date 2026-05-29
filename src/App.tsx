@@ -85,11 +85,13 @@ function Header() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#top" className="flex items-center gap-2">
-          <div className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
-            <Sparkles className="h-4 w-4" />
+        <a href="#top" className="group flex items-center gap-2.5">
+          <div className="relative grid h-9 w-9 place-items-center rounded-xl bg-primary shadow-elegant ring-1 ring-[color:var(--gold)]/40 transition group-hover:ring-[color:var(--gold)]">
+            <Sparkles className="h-4 w-4 text-[color:var(--gold)]" />
           </div>
-          <span className="font-display text-lg tracking-tight">Siteflow</span>
+          <span className="font-display text-lg tracking-tight">
+            Site<span className="gold-text">bytilak</span>
+          </span>
         </a>
         <nav className="hidden items-center gap-8 md:flex">
           {navItems.map(([label, href]) => (
